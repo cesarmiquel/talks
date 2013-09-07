@@ -501,6 +501,7 @@ science. The routine makes programs easier to read and easier to understand.
         <li>Usar convenciones para prefijos/sufijos (i.e. <span class="yellow">NoCards</span> o <span class="yellow3">NumCards</span>)</li>
         <li>Si hay utilizar herramientas para detectar violaciones a las convenciones</li>
         <li><span class="green2">Initicializar</span> cada variable <span class="red">lo más cerca</span> posible del <span class="yellow3">primer uso</span>.</li>
+        <li>Usar <span class="red">todas las variables</span> que se definan</li>
       </ul>
     </article>
   </slide>
@@ -562,48 +563,301 @@ science. The routine makes programs easier to read and easier to understand.
     </article>
   </slide>
 
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Más tips</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Usar <span class="blue2">_final_</span> o <span class="blue2">_const_</span> cuando esta disponible. Util para constantes de clases, parámetros que no se modifican, cualquier variable que no debería ser modificada por la rutina.</li>
+        <li>Prestar particlar atención a los <span class="blue2">contadores</span>: un error común es olvidar resetearlos cuando se reutilizan</li>
+        <li>Aprovechar los <span class="blue2">warnings</span> de los compiladores</li>
+        <li><span class="blue2">Minimizar el scope</span> de las variables. Por la misma razón por las que no se usan las globales</li>
+        <li>Cuánto más <span class="blue2">grande el es scope</span> de una variables <span class="red2">más dificil de entender</span></li>
+      </ul>
+    </article>
+  </slide>
+
+   <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Variables 'temporales'</h3>
+    </hgroup>
+    <p><span class="red2">Cada variable</span> deber tener <span class="red2">un sólo uso.</span></p><br/>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="python">
+        // Compute roots of a quadratic equation.
+        // This code assumes that (b*b-4*a*c) is positive.
+        temp = math.sqrt( b*b - 4*a*c )
+        root[0] = ( -b + temp ) / ( 2 * a )
+        root[1] = ( -b - temp ) / ( 2 * a )
+        ...
+        // swap the roots
+        temp = root[0]
+        root[0] = root[1]
+        root[1] = temp
+      </pre>
+    </article>
+    <ul class="build">
+      <li>Cual es la relación entre <span class="red2">temp</span> en el primer caso con el segundo? NADA.</li>
+      <li>Entonces: por qué se llaman igual!?</li>
+      <li>Usar el mismo nombre da la impresión de que están relacionadas</li>
+    </ul>
+  </slide>
+
+   <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Variables 'temporales' (cont.)</h3>
+    </hgroup>
+    <p>Simplemente cambiando el nombre de las variables es <span class="blue2">mucho más evidante</span> qué hace cada variable.</p><br/>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="python">
+        // Compute roots of a quadratic equation.
+        // This code assumes that (b*b-4*a*c) is positive.
+        discriminant = b*b - 4*a*c
+        root[0] = ( -b + math.sqrt( discriminant ) ) / ( 2 * a )
+        root[1] = ( -b - math.sqrt( discriminant ) ) / ( 2 * a )
+        ...
+        // swap the roots
+        oldRoot = root[0]
+        root[0] = root[1]
+        root[1] = oldRoot
+      </pre>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Variables con significados ocultos</h3>
+    </hgroup>
+    <article class="smaller">
+      <p>Evitar variables con significados ocultos. Por ejemplo:</p>
+      <ul class="build">
+        <li><code>pageCount</code> es el número de páginas impresas pero si es -1 indica un error</li>
+        <li><code>customerId</code> es el ID de cliente pero si es mayor que 500.000, restando 500.000 obtenes el ID de la cuenta!</li>
+        <li><code>bytesWritten</code> es la cantidad de bytes escritos pero si es negativo es el volumen donde se escriben los datos</li>
+        <li>En el 1er caso el <code>-1</code> está haciendo de booleano</li>
+        <li>Aunque para uno puede resultar evidente el doble uso para otra persona seguramente le resultará confuso. Usar dos variables.</li>
+      </ul>
+    </article>
+  </slide>
+
+   <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Nombres para las variables</h3>
+    </hgroup>
+    <article class="smaller">
+      <ul class="build">
+        <li>Horror!
+        <pre class="prettyprint" data-lang="python">
+          x = x - xx
+          xxx = fido + self.sales_tax( fido )
+          x = x + self.late_fee( x1, x ) + xxx
+          x = x + self.interest( x1, x )
+        </pre>
+        </li>
+        <li><p>Notar como un simple cambio hace una diferencia <span class="green">gigante</span>:</p>
+          <pre class="prettyprint" data-lang="python">
+            balance = balance - lastPayment
+            monthlyTotal = newPurchases + self.sales_tax( newPurchases )
+            balance = balance + self.late_fee( customerID, balance ) + monthlyTotal
+            balance = balance + self.interest( customerID, balance )
+          </pre>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Bautizando variables</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>El nombre debe represantar de manera precisa la entidad que va a representar</li>
+        <li>Una buena técnica es decir en voz alta los que representa. Ese es el nombre</li>
+        <li>Running total of checks written to date: <code>runningTotal</code>, <code>checkTotal</code> en lugar de <code>ct checks CHKTTL c1</code></li>
+        <li>Velocity of a bullet train: <code>velocity, trainVelocity, velocityInMph</code> en lugar de <code>velt, v, tv, x, x1, x2, train</code></li>
+        <li>Current date: <code>currentDate, todaysDate</code> en lugar de <code> cd, current, c, x, x1, x2, date</code></li>
+        <li>Lines per page: <code>linesPerPage</code> en lugar de <code>lpp, lines, l, x, x1, x2</code></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Largo adecuado para el nombre</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Demasiado largo:<br/><code>numberOfPeopleOnTheUsOlympicTeam, numberOfSeatsInTheStadium, maximumNumberOfPointsInModernOlympics</code></li>
+        <li>Demasiado corto:<br/><code>n, np, ntm, ns, nsisd, max, points</code></li>
+        <li>Largo adecuado:<br/><code>numTeamMembers, teamMemberCount, numSeatsInStadium, seatCount, teamPointsMax, pointsRecord</code></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Usar los opuestos correctamente</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>begin/end</li>
+        <li>first/last</li>
+        <li>locked/unlocked</li>
+        <li>min/max</li>
+        <li>next/previous</li>
+        <li>old/new</li>
+        <li>opened/closed</li>
+        <li>visible/invisible</li>
+        <li>source/target</li>
+        <li>source/destination</li>
+        <li>up/down</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Nombres para variables en loops</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Cuando el loop es bien corto se pueden usar variables de loops: <code>i, j, k</code></li>
+        <li>Para loops anidados es mejor usar nombres más largos<br/>
+        <pre class="prettyprint" data-lang="c">
+for ( teamIndex = 0; teamIndex < teamCount; teamIndex++ ) {
+    for ( eventIndex = 0; eventIndex < eventCount[ teamIndex ]; eventIndex++ ) {
+        score[ teamIndex ][ eventIndex ] = 0;
+    }
+}
+        </pre>
+        </li>
+        <li>Es infinito más claro<br/>&nbsp;&nbsp;<code>score[ teamIndex ][ eventIndex ]</code><br/>que<br/>&nbsp;&nbsp;<code>score[ i ][ j ]</code></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>'status variables'</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Pensar mejores nombres que <code>flag</code></li>
+        <li>Horror!<br/><br/>
+        <pre class="prettyprint" data-lang="c">
+          if ( flag ) ...
+          if ( statusFlag & 0x0F ) ...
+          if ( printFlag == 16 ) ...
+          if ( computeFlag == 0 ) ...
+
+          flag = 0x1
+          statusFlag = 0x80
+          printFlag = 16
+          computeFlag = 0
+        </pre>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>'status variables'</h3>
+    </hgroup>
+    <article>
+      <p>Mucho mejor:</p><br/>
+      <pre class="prettyprint" data-lang="c">
+        if ( dataReady ) ...
+        if ( characterType & PRINTABLE_CHAR ) ...
+        if ( reportType == ReportType_Annual ) ...
+        if ( recalcNeeded = false ) ...
+
+        dataReady = true
+        characterType = CONTROL_CHARACTER
+        reportType = ReportType_Annual
+        recalcNeeded = false
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Recomendaciones para variables Booleanas</h3>
+    </hgroup>
+    <article>
+      <p>Buenos nombres: <code>done, error, found, success</code> o <code>ok</code><br/>Algunos consejos:</p>
+      <ul class="build">
+        <li>Usar nombres que impliquen 'true' o 'false'.</li>
+        <li>Un mal ejemplo: <code>status</code> o <code>sourceFile</code></li>
+        <li>Qué quiere decir que <code>status</code> sea <code>true</code>?! Que sea <code>true</code> significa que está OK?</li>
+        <li>Otra forma de ver que está bien es cuando son is_*: <code>is_done, is_error</code> o <code>is_found</code> tien sentido.</li>
+        <li><code>is_status</code> qué es!?!?!?</li>
+        <li>Evitar usar variables 'negativa':<br/>&nbsp;&nbsp;<code>notFound, notDone</code>, etc.<br/>Generan este tipo de cosas:<br/>&nbsp;&nbsp; <code>if ( not notFound ) ... </code></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Seguir convenciones cuando existan</h3>
+    </hgroup>
+    <article>
+      <p>Por ejemplo en Java existen las siguientes convenciones:</p>
+      <ul class="build">
+        <li><code>i</code> y <code>j</code> son indices enteros</li>
+        <li>Las constantes van <code>ALL_CAPS</code> separadas por '_': <code>SOY_UNA_CONSTANTE</code></li>
+        <li>Class e interface capitalizadas con la primer letra de cada palabra</li>
+        <li>Variables y nombres de métodos en 'camelcase': <code>variableOrRoutineName</code></li>
+        <li><code>get</code> y <code>set</code> se usan como prefijo para los getters/setters: <code>getColor()</code> o <code>setTerminal()</code></li>
+      </ul>
+    </article>
+  </slide>
+
 
 <!--
-## More tips
+# Variable names: short names
 
-* Use _final_ or _const_ when possible. Useful in class constants, input-only parameters, and any local variables whose values are intended to remain unchanged after initialization.
-* Pay special attention to counters and accumulators. Its a common error to forget to reset it when re-used.
-* Take advantage of your compiler’s warning messages. Compilers can warn you of un-initialized vars
-* Minimize scope of variables. For the same reason global variables are bad.
+> The desire to use short variable names is in some ways a remnant of an earlier age of 
+computing. Older languages like assembler, generic Basic, and Fortran limited variable
+names to 2–8 characters and forced programmers to create short names
 
-Key point on scope: The difference between the “convenience” philosophy and the “intellectual manageability”. Maximizing scope might indeed make programs easy to write, but a program in which any routine can use any variable at any time is harder to understand than a program that uses well-factored routines.
+Guidelines for short names:
 
-## More tips
+* Use standard abbreviations (in dictionary)
+* Remove all nonleading vowels. (computer becomes cmptr, and screen becomes scrn. apple becomes appl, and integer becomes intgr.)
+* Many more in the book
 
-* Use each variable for one purpose only. Avoid _temp_ varibales.
 
+# Varibale names: what names to avoid
 
-Coding horror:
+* Avoid names with similar meanings. Example: input and inputValue, recordNum and numRecords, and fileNumber and fileIndex
+* Avoid variables with different meanings but similar names. Example: clientRecs and clientReps much better to use: clientRecords and clientReports
+* Avoid names with numbers. You should probably be using an array.
+* Avoid words that are commonly misspelled in English
+* Avoid the names of standard types, variables, and routines
+* Avoid names containing hard-to-read characters. Nice examples:
 
-    // Compute roots of a quadratic equation.
-    // This code assumes that (b*b-4*a*c) is positive.
-    temp = math.sqrt( b*b - 4*a*c )
-    root[0] = ( -b + temp ) / ( 2 * a )
-    root[1] = ( -b - temp ) / ( 2 * a )
-    ...
-    // swap the roots
-    temp = root[0]
-    root[0] = root[1]
-    root[1] = temp
-    
-Better version:
-
-    // Compute roots of a quadratic equation.
-    // This code assumes that (b*b-4*a*c) is positive.
-    discriminant = b*b - 4*a*c
-    root[0] = ( -b + math.sqrt( discriminant ) ) / ( 2 * a )
-    root[1] = ( -b - math.sqrt( discriminant ) ) / ( 2 * a )
-    ...
-    // swap the roots
-    oldRoot = root[0]
-    root[0] = root[1]
-    root[1] = oldRoot
-
+eyeChartl - eyeChartI - eyeChartl
+TTLCONFUSION - TTLCONFUSION - TTLC0NFUSION
+hard2Read - hardZRead - hard2Read
+GRANDTOTAL - GRANDTOTAL - 6RANDTOTAL
+ttl5 - ttlS - ttlS
 
 
 -->
