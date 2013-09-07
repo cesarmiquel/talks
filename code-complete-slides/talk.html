@@ -1,0 +1,985 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="fill nobackground" style="background-image: url(images/globo1.png);">
+    <article class="flexbox vcenter">
+        <h1 style="font-size: 90px; color: white;">TECNODAY_</h1>
+    </article>
+  </slide>
+
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/logo-nuevo-con-texto-big.png"></span>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/logo-nuevo-big.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/logo-nuevo-big.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q>
+        What is the single most influential book every programmer should read?
+      </q>
+      <div class="author">
+        Stackoverflow<br>
+        <a href="http://bit.ly/KeP8j" target="_blank">http://bit.ly/KeP8j</a>
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Los primeros 6 libros son:</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li><code>Code Complete (2nd edition)</code> by Steve McConnell</li>
+        <li><code>The Pragmatic Programmer</code></li>
+        <li><code>Structure and Interpretation of Computer Programs</code></li>
+        <li><code>The C Programming Language</code> by Kernighan and Ritchie</li>
+        <li><code>Introduction to Algorithms</code> by Cormen, Leiserson, Rivest &amp; Stein</li>
+        <li><code>Design Patterns</code> by the Gang of Four</li>
+        <li>...</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Outline</h2>
+      <h3>De qué vamos a hablar</h3>
+    </hgroup>
+    <article>
+      <ol class="build">
+        <li>1. Como escribir funciones/procedimientos de alta calidad:<br/><br/>
+          <ul>
+            <li>Cómo es una rutina horrible</li>
+            <li>Cómo decidir cuando crear una rutina</li>
+            <li>Cómo elegir un nombre adecuado</li>
+            <li>Guidelines para los parámetros de una rutina</li>
+          </ul>
+        </li>
+        <li>2. Variables<br/><br/>
+          <ul>
+            <li>Donde y como definirlas</li>
+            <li>Variables <em>temporales</em></li>
+            <li>Cómo nombrar las variables</li>
+            <li>Consejos para tipos particulares de variables</li>
+            <li>Otros consejos utiles</li>
+          </ul>
+        </li>
+      </ol>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Low-quality routine</h2>
+      <h3>Un ejemplo de código horrible</h3>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="c">
+    void HandleStuff( CORP_DATA & inputRec, int crntQtr, EMP_DATA empRec,
+    double & estimRevenue, double ytdRevenue, int screenX, int screenY,
+    COLOR_TYPE & newColor, COLOR_TYPE & prevColor, StatusType & status,
+    int expenseType )
+    {
+        int i;
+        for ( i = 0; i < 100; i++ ) {
+             inputRec.revenue[i] = 0;
+             inputRec.expense[i] = corpExpense[ crntQtr ][ i ];
+        }
+        UpdateCorpDatabase( empRec );
+        estimRevenue = ytdRevenue * 4.0 / (double) crntQtr;
+        newColor = prevColor;
+        status = SUCCESS;
+        if ( expenseType == 1 ) {
+            for ( i = 0; i < 12; i++ )
+                profit[i] = revenue[i] - expense.type1[i];
+        }
+        else if ( expenseType == 2 ) {
+            profit[i] = revenue[i] - expense.type2[i];
+        }
+        else if ( expenseType == 3 )
+            profit[i] = revenue[i] - expense.type3[i];
+    }
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Low-quality routine</h2>
+      <h3>Nombre y parámetros </h3>
+    </hgroup>
+    <article class="smaller">
+
+    <pre class="prettyprint" data-lang="c">
+    void <b>HandleStuff( CORP_DATA & inputRec, int crntQtr, EMP_DATA empRec,
+    double & estimRevenue, double ytdRevenue, int screenX, int screenY,
+    COLOR_TYPE & newColor, COLOR_TYPE & prevColor, StatusType & status,
+    int expenseType )</b>
+    {
+      // ...
+    }
+    </pre>
+
+    <ul class="build">
+      <li>El nombre no describe qué hace la rutina.</li>
+      <li>Tiene demasiados parámetros.</li>
+      <li>Los parámetros no están ordenados de una manera lógica.</li>
+      <li>Hay parámetros que no se usan</li>
+    </ul>
+
+        </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Low-quality routine</h2>
+      <h3>No tiene un propósito definido</h3>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="c">
+    void HandleStuff( CORP_DATA & inputRec, int crntQtr, EMP_DATA empRec,
+    double & estimRevenue, double ytdRevenue, int screenX, int screenY,
+    COLOR_TYPE & newColor, COLOR_TYPE & prevColor, StatusType & status,
+    int expenseType )
+    {
+        <b>int i;
+        for ( i = 0; i < 100; i++ ) {
+             inputRec.revenue[i] = 0;
+             inputRec.expense[i] = corpExpense[ crntQtr ][ i ];
+        }
+        UpdateCorpDatabase( empRec );
+        estimRevenue = ytdRevenue * 4.0 / (double) crntQtr;
+        newColor = prevColor;
+        status = SUCCESS;
+        if ( expenseType == 1 ) {
+            for ( i = 0; i < 12; i++ )
+                profit[i] = revenue[i] - expense.type1[i];
+        }
+        else if ( expenseType == 2 ) {
+            profit[i] = revenue[i] - expense.type2[i];
+        }
+        else if ( expenseType == 3 )
+            profit[i] = revenue[i] - expense.type3[i];</b>
+    }
+      </pre>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Low-quality routine</h2>
+      <h3>Escribe y usa variables globales </h3>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="c">
+    void HandleStuff( CORP_DATA & inputRec, int crntQtr, EMP_DATA empRec,
+    double & estimRevenue, double ytdRevenue, int screenX, int screenY,
+    COLOR_TYPE & newColor, COLOR_TYPE & prevColor, StatusType & status,
+    int expenseType )
+    {
+        int i;
+        for ( i = 0; i < 100; i++ ) {
+             inputRec.revenue[i] = 0;
+             inputRec.expense[i] = <b>corpExpense[ crntQtr ][ i ];</b>
+        }
+        UpdateCorpDatabase( empRec );
+        estimRevenue = ytdRevenue * 4.0 / (double) crntQtr;
+        newColor = prevColor;
+        status = SUCCESS;
+        if ( expenseType == 1 ) {
+            for ( i = 0; i < 12; i++ )
+                <b>profit[i]</b> = revenue[i] - expense.type1[i];
+        }
+        else if ( expenseType == 2 ) {
+            <b>profit[i]</b> = revenue[i] - expense.type2[i];
+        }
+        else if ( expenseType == 3 )
+            <b>profit[i]</b> = revenue[i] - expense.type3[i];
+    }
+      </pre>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Low-quality routine</h2>
+      <h3>Para peor...</h3>
+    </hgroup>
+    <article>
+      <p>Ademas de todas las razones anteriores:</p>
+      <ul class="build">
+        <li>No tiene ningun tipo de documentacion (comentarios / parámetros)</li>
+        <li>No tiene un estructura que nos diga qué hace cada cosa</li>
+        <li>Llena de números mágicos (100, 4.0, 12, 2, y 3).</li>
+        <li>Modifica una variables que se llama <b>inputRec</b>!</li>
+        <li>No se defiende de parámetros incorrectos (division por 0)</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/logo-nuevo-big.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q>
+Aside from the computer itself, the routine is the single greatest invention in computer
+science. The routine makes programs easier to read and easier to understand.
+      </q>
+      <div class="author">
+        Code Complete<br>
+        Chapter 7 - High Quality Routines
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Razones válidas para crear una rutina</h2>
+      <h3>Una lista breve</h3>
+    </hgroup>
+    <article>
+      <p>Algunas de las razones más importantes/comunes para armar una rutina:</p>
+      <ul class="build">
+        <li><code>Reducir la complejidad.</code> Permite no tener que recordar los detalles de como funciona.</li>
+        <li>Introducir una abstracción intermedia/entendible</li>
+        <li>Evitar código duplicado</li>
+        <li>Esconder secuencias</li>
+        <li>Mejorar la portabilidad</li>
+        <li>Simplificar lógica booleana complicada / reglas de negocios</li>
+        <li>Mejorar el rendimiento</li>
+      </ul>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Razones válidas para crear una rutina:</h2>
+      <h3>Introducir una abstracción intermedia</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="pascal">
+        if ( node <> NULL ) then
+          while ( node.next <> NULL ) do
+            node = node.next
+            leafName = node.name
+          end while
+        else
+          leafName = ""
+        end if
+      </pre>
+      <p>podría reemplazarse por:</p>
+      <pre class="prettyprint" data-lang="pascal">
+      leafName = GetLeafName( node )
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Razones válidas para crear una rutina:</h2>
+      <h3>Operaciones demasiado simples</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="pascal">
+      points = deviceUnits * ( POINTS_PER_INCH / DeviceUnitsPerInch() )
+      </pre>
+      <p>podría reemplazarse por:</p>
+      <pre class="prettyprint" data-lang="pascal">
+      points = DeviceUnitsToPoints( deviceUnits )
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Razones válidas para crear una rutina:</h2>
+      <h3>Operaciones demasiado simples</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="pascal">
+    Function DeviceUnitsToPoints( deviceUnits: Integer ) Integer;
+      if ( DeviceUnitsPerInch() <> 0 )
+        DeviceUnitsToPoints = deviceUnits *
+          ( POINTS_PER_INCH / DeviceUnitsPerInch() )
+      else
+        DeviceUnitsToPoints = 0
+      end if
+    End Function
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Cómo ponerle nombre a nuestras rutinas</h2>
+      <h3>Describir todo lo que hace</h3>
+    </hgroup>
+    <article>
+        <ul class="build">
+          <li>Describir toda la salida y efectos secundarios</li>
+          <li>Ejemplo: si una rutina calcula los totales de un reporte y abre un archivo:<br/><br/>
+          &nbsp;&nbsp;<code>ComputeReportTotalsAndOpenOutputFile()</code><br/><br/>y no solo<br/><br/>&nbsp;&nbsp;<code>ComputeReportTotals()</code>.
+          <li>Si los nombres resultantes son horribles => el problema es la rutina</li>
+          <li>La solución es re-pensar y/o separar la rutina</li>
+        </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Cómo ponerle nombre a nuestras rutinas</h2>
+      <h3>Evitar nombres que son genéricos o poco específicos</h3>
+    </hgroup>
+    <article>
+        <ul class="build">
+          <li>Un nombre <span class="red2">débil</span> es el síntoma de una rutina con <span class="red2">propósito poco claro</span>.</li>
+          <li>Evitar nombres como<br/><br/>
+          &nbsp;&nbsp;<code>HandleCalculation()</code><br/>
+          &nbsp;&nbsp;<code>PerformServices()</code><br/>
+          &nbsp;&nbsp;<code>OutputUser()</code><br/>
+          &nbsp;&nbsp;<code>ProcessInput()</code></li>
+          <li>Hay veces que el único problema es la elección del nombre:<br/><br/>
+          &nbsp;&nbsp;<code>HandleOutput()</code><br/><br/>
+          no es bueno pero <br/><br/>
+          &nbsp;&nbsp;<code>FormatAndPrintOutput()</code><br/><br/>
+          está perfecto: describe bien lo que hace la rutina.</li>
+        </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Cómo ponerle nombre a nuestras rutinas</h2>
+      <h3>Para los procedimientos: usar un verbo seguido por un sujeto</h3>
+    </hgroup>
+    <article>
+        <ul class="build">
+          <li>Buenos ejemplos:<br/><br/>
+          &nbsp;&nbsp;<code>PrintDocument()</code><br/>
+          &nbsp;&nbsp;<code>CalcMonthlyRevenues()</code><br/>
+          &nbsp;&nbsp;<code>CheckOrderlnfo()</code><br/>
+          &nbsp;&nbsp;<code>RepaginateDocument()</code>
+          </li>
+          <li>En lenguajes orientados a objetos utilizar verbos ya que el objeto normalmente aparece:<br/><br/>
+          &nbsp;&nbsp;<code>document.print()</code><br/>
+          &nbsp;&nbsp;<code>orderInfo.check()</code><br/>
+          &nbsp;&nbsp;<code>monthlyRevenues.calc()</code><br/>
+          </li>
+          <li>
+          &nbsp;&nbsp;<code>document.printDocument()</code>es <span class="red2">redunante</span>
+          </li>
+        </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Cómo ponerle nombre a nuestras rutinas</h2>
+      <h3>Usar los opuestos correctamente</h3>
+    </hgroup>
+    <article>
+        <ul class="build">
+          <li>Utilizar bien los opuestos ayuda a la <span class="green2">consistencia</span></li>
+          <li>La consistencia ayuda a la <span class="green2">legibilidad</span></li>
+          <li>Opuestos como <span class="green2">first/last</span> son claros</li>
+          <li>Funciones como:<br/><br/>
+          &nbsp;<code>FileOpen()</code><br/><br/>
+          y<br/><br/>
+          &nbsp;<code>_lclose()</code><br/><br/>
+          son asimétricos y generan confusión</li>
+        </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Cómo ponerle nombre a nuestras rutinas</h2>
+      <h3>Usar los opuestos correctamente</h3>
+    </hgroup>
+    <article>
+      <p>Lista de opuestos:</p>
+      <table>
+        <tr><td><span class="red">add / remove</span></td><td><span class="blue2">increment / decrement</span></td><td><span class="green2">open/close</span></td></tr>
+        <tr><td><span class="red">begin / end</span></td><td><span class="blue2">insert / delete</span></td><td><span class="green2">show/hide</span></td></tr>
+        <tr><td><span class="red">create / destroy</span></td><td><span class="blue2">lock / unlock</span></td><td><span class="green2">source/target</span></td></tr>
+        <tr><td><span class="red">first / last</span></td><td><span class="blue2">min / max</span></td><td><span class="green2">start/stop</span></td></tr>
+        <tr><td><span class="red">get / put</span></td><td><span class="blue2">next / previous</span></td><td><span class="green2">up/down</span></td></tr>
+        <tr><td><span class="red">get / set</span></td><td><span class="blue2">old / new</span></td></tr>
+      </table>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Rutinas de alta calidad</h2>
+      <h3>Largo óptimo de una rutina</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>El libro presenta varios estudios que estudiaron correlaciones entre largo y métricas de calidad</li>
+        <li>En la mayoría se obtienen mejores métricas con rutinas cortas</li>
+        <li>El óptimo es <span class="green2">50-150 lineas</span></li>
+        <li><span class="red2">nunca</span> deberían exeder las <span class="red2">200 lineas</span></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Rutinas de alta calidad</h2>
+      <h3>Recomendaciones para los parámetros de las rutinas</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Poner los parámetros en órden: <span class="yellow2">entrada</span>, <span class="green2">entrada-salida</span> y <span class="blue2">sólo salida</span></li>
+        <li>Si hay varias rutinas con los mismos parámetros: <span class="green2">usar el mismo orden</span></li>
+        <li>No usar más de 7 parámetros</li>
+        <li>Utilizar <span class="red2">todos</span> los parámetros</li>
+        <li>Documentar los supuestos que asumimos de los parámetros</li>
+        <li>Mejor aún: <span class="green2">utilizar asserts()</span></li>
+        <li>Qué cosas documentar?
+          <ul>
+            <li>Tipo de parámetros</li>
+            <li>Unidades (metros, pulgadas, segundos, etc)</li>
+            <li>Rangos esperados</li>
+            <li>Valores que no deberían aparecer</li>
+          </ul>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Recomendaciones</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Declarar <span class="red2">todas</span> las variables</li>
+        <li>Usar convenciones para prefijos/sufijos (i.e. <span class="yellow">NoCards</span> o <span class="yellow3">NumCards</span>)</li>
+        <li>Si hay utilizar herramientas para detectar violaciones a las convenciones</li>
+        <li><span class="green2">Initicializar</span> cada variable <span class="red">lo más cerca</span> posible del <span class="yellow3">primer uso</span>.</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Inicializar lo más cerca del 1er uso</h3>
+    </hgroup>
+    <img src="images/coding-horror.jpg" style="width: 80px;"/>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="javascript">
+        // initialize all variables
+        var accountIndex = 0
+        var total = 0.0
+        var done = false
+        
+        // ...
+        
+        // code using accountIndex
+        // ..
+        
+        // code using total
+        // ...
+        
+        //  code using done
+        while( ! done ) {
+        
+        }
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Inicializar lo más cerca del 1er uso</h3>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="javascript">
+        var accountIndex = 0
+        // code using accountIndex
+        // ..
+        
+        var total = 0.0
+        // code using total
+        // ...
+        
+        var done = false
+        //  code using done
+        while( ! done ) {
+        
+        }
+      </pre>
+      <ul>
+        <li>En el 1er caso <span class="green2">done</span> el código anterior lo pudo modificar accidentalmente</li>
+        <li>Juntar las inicializaciones da la impresión de que <span class="red2">todas</span> las variables se usan en <span class="red2">todo</span> el código.</li>
+        <li>Si después se agregan loops alrededor del loop de done se pueden olvidar de re-inicializarla</li>
+    </article>
+  </slide>
+
+
+<!--
+## More tips
+
+* Use _final_ or _const_ when possible. Useful in class constants, input-only parameters, and any local variables whose values are intended to remain unchanged after initialization.
+* Pay special attention to counters and accumulators. Its a common error to forget to reset it when re-used.
+* Take advantage of your compiler’s warning messages. Compilers can warn you of un-initialized vars
+* Minimize scope of variables. For the same reason global variables are bad.
+
+Key point on scope: The difference between the “convenience” philosophy and the “intellectual manageability”. Maximizing scope might indeed make programs easy to write, but a program in which any routine can use any variable at any time is harder to understand than a program that uses well-factored routines.
+
+## More tips
+
+* Use each variable for one purpose only. Avoid _temp_ varibales.
+
+
+Coding horror:
+
+    // Compute roots of a quadratic equation.
+    // This code assumes that (b*b-4*a*c) is positive.
+    temp = math.sqrt( b*b - 4*a*c )
+    root[0] = ( -b + temp ) / ( 2 * a )
+    root[1] = ( -b - temp ) / ( 2 * a )
+    ...
+    // swap the roots
+    temp = root[0]
+    root[0] = root[1]
+    root[1] = temp
+    
+Better version:
+
+    // Compute roots of a quadratic equation.
+    // This code assumes that (b*b-4*a*c) is positive.
+    discriminant = b*b - 4*a*c
+    root[0] = ( -b + math.sqrt( discriminant ) ) / ( 2 * a )
+    root[1] = ( -b - math.sqrt( discriminant ) ) / ( 2 * a )
+    ...
+    // swap the roots
+    oldRoot = root[0]
+    root[0] = root[1]
+    root[1] = oldRoot
+
+
+
+-->
+
+
+
+
+  <slide>
+    <hgroup>
+      <h2>Slide with Bullets</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Titles are formatted as Open Sans with bold applied and font size is set at 45</li>
+        <li>Title capitalization is title case
+          <ul>
+            <li>Subtitle capitalization is title case</li>
+          </ul>
+        </li>
+        <li>Subtitle capitalization is title case</li>
+        <li>Titles and subtitles should never have a period at the end</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Slide with Bullets that Build</h2>
+      <h3>Subtitle Placeholder</h3>
+    </hgroup>
+    <article>
+      <p>A list where items build:</p>
+      <ul class="build">
+        <li>Pressing 'h' highlights code snippets</li>
+        <li>Pressing 'p' toggles speaker notes (if they're on the current slide)</li>
+        <li>Pressing 'f' toggles fullscreen viewing</li>
+        <li>Pressing 'w' toggles widescreen</li>
+        <li>Pressing 'o' toggles overview mode</li>
+        <li>Pressing 'ESC' toggles off these goodies</li>
+      </ul>
+      <p>Another list, but items fade as they build:</p>
+      <ul class="build fade">
+        <li>Hover over me!</li>
+        <li>Hover over me!</li>
+        <li>Hover over me!</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Slide with (Smaller Font)</h2>
+    </hgroup>
+    <article class="smaller">
+      <ul>
+        <li>All <a href="http://google.com">links</a> open in new tabs.</li>
+        <li>To change that this, add <code>target="_self"</code> to the link.</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide hidden>
+    Hidden slides are left out of the presentation.
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Code Slide (with Subtitle Placeholder)</h2>
+      <h3>Subtitle Placeholder</h3>
+    </hgroup>
+    <article>
+      <p>Press 'h' to highlight important sections of code (wrapped in <code>&lt;b&gt;</code>).</p>
+      <pre class="prettyprint" data-lang="javascript">
+&lt;script type='text/javascript'&gt;
+  // Say hello world until the user starts questioning
+  // the meaningfulness of their existence.
+  function helloWorld(world) {
+    <b>for (var i = 42; --i &gt;= 0;) {
+      alert('Hello ' + String(world));
+    }</b>
+  }
+&lt;/script&gt;
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Code Slide (Smaller Font)</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="javascript">
+// Say hello world until the user starts questioning
+// the meaningfulness of their existence.
+function helloWorld(world) {
+  for (var i = 42; --i &gt;= 0;) {
+    alert('Hello ' + String(world));
+  }
+}
+</pre>
+<pre class="prettyprint" data-lang="css">
+&lt;style&gt;
+  p { color: pink }
+  b { color: blue }
+&lt;/style&gt;
+</pre>
+<pre class="prettyprint" data-lang="html">
+&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+  &lt;title>My Awesome Page&lt;/title>
+&lt;/head>
+&lt;body>
+  &lt;p&gt;Hello world&lt;/p&gt;
+&lt;body>
+&lt;/html>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <aside class="note">
+      <section>
+        <ul>
+          <li>Point I wanted to make #1</li>
+          <li>Point I wanted to make #2</li>
+          <li>Point I wanted to make #3</li>
+          <li>Example <a href="#">link</a> in notes.</li>
+        </ul>
+        <p><b>Remember to say this tag line!</b></p>
+      </section>
+    </aside>
+    <hgroup>
+      <h2>Slide with Speaker Notes</h2>
+    </hgroup>
+    <article>
+      <p>Press 'p' to toggle speaker notes.</p>
+    </article>
+  </slide>
+
+  <slide>
+    <aside class="note">
+      <section>
+        <ul>
+          <li>See this amazing link: <a href="http://www.google.com">link</a>.</li>
+        </ul>
+        <p><b>Remember to say this tag line!</b></p>
+      </section>
+    </aside>
+    <hgroup>
+      <h2>Presenter Mode</h2>
+    </hgroup>
+    <article>
+      <p>Add <code><a href="?presentme=true" target="_self">?presentme=true</a></code> to the URL to enabled presenter mode.
+      This setting is sticky, meaning refreshing the page will persist presenter
+      mode.</p>
+      <p>Hit <code><a href="?presentme=false" target="_self">?presentme=false</a></code> to disable presenter mode.</p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Slide with Image</h2>
+    </hgroup>
+    <article>
+      <img src="images/chart.png" class="reflect" alt="Description" title="Description">
+      <footer class="source">source: place source info here</footer>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Slide with Image (Centered horz/vert)</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/barchart.png" alt="Description" title="Description">
+      <footer class="source">source: place source info here</footer>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Table Option A</h2>
+      <h3>Subtitle Placeholder</h3>
+    </hgroup>
+    <article>
+      <table>
+        <tr>
+          <th></th><th>Column 1</th><th>Column 2</th><th>Column 3</th><th>Column 4</th>
+        </tr>
+        <tr>
+          <td>Row 1</td><td>placeholder</td><td class="highlight">placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <td>Row 2</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <td>Row 3</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <td>Row 4</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <td>Row 5</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+      </table>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Table Option A (Smaller Text)</h2>
+      <h3>Subtitle Placeholder</h3>
+    </hgroup>
+    <article class="smaller">
+      <table>
+        <tr>
+          <th></th><th>Column 1</th><th>Column 2</th><th>Column 3</th><th>Column 4</th>
+        </tr>
+        <tr>
+          <td>Row 1</td><td>placeholder</td><td class="highlight">placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <td>Row 2</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <td>Row 3</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <td>Row 4</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <td>Row 5</td><td>placeholder</td><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+      </table>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Table Option B</h2>
+      <h3>Subtitle Placeholder</h3>
+    </hgroup>
+    <article>
+      <table class="rows">
+        <tr>
+          <th>Header 1</th><td>placeholder</td><td class="highlight">placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <th>Header 2</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <th>Header 3</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <th>Header 4</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+        <tr>
+          <th>Header 5</th><td>placeholder</td><td>placeholder</td><td>placeholder</td>
+        </tr>
+      </table>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Slide Styles</h2>
+    </hgroup>
+    <article class="smaller">
+      <div class="columns-2">
+        <ul>
+          <li class="red">class="red"</li>
+          <li class="red2">class="red2"</li>
+          <li class="red3">class="red3"</li>
+          <li class="blue">class="blue"</li>
+          <li class="blue2">class="blue2"</li>
+          <li class="blue3">class="blue3"</li>
+          <li class="green">class="green"</li>
+          <li class="green2">class="green2"</li>
+        </ul>
+        <ul>
+          <li class="green3">class="green3"</li>
+          <li class="yellow">class="yellow"</li>
+          <li class="yellow2">class="yellow2"</li>
+          <li class="yellow3">class="yellow3"</li>
+          <li class="gray">class="gray"</li>
+          <li class="gray2">class="gray2"</li>
+          <li class="gray3">class="gray3"</li>
+          <li class="gray4">class="gray4"</li>
+        </ul>
+      </div>
+      <div class="centered" style="margin-top:2em">
+        I am centered text with a <button>Button</button> and <button disabled>Disabled</button> button.
+      </div>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/logo-nuevo-big.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Segue Slide</h2>
+      <h3>Subtitle Placeholder</h3>
+    </hgroup>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/sky.jpg)">
+    <hgroup>
+      <h2 class="white">Full Image (with Optional Header)</h2>
+    </hgroup>
+    <footer class="source white">www.flickr.com/photos/25797459@N06/5438799763/</footer>
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/logo-nuevo-big.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q>
+        This is an example of quote text.
+      </q>
+      <div class="author">
+        Name<br>
+        Company
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Slide with Iframe</h2>
+    </hgroup>
+    <article>
+      <iframe data-src="http://www.google.com/doodle4google/resources/history.html"></iframe>
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <iframe data-src="http://www.google.com/doodle4google/resources/history.html"></iframe>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/logo-nuevo-big.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>&lt;Muchas Gracias!&gt;</h2>
+      <p>Mis datos de contacto para los que le interese.</p>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="logoslide dark nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/logo-nuevo-con-texto-big.png"></span>
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
