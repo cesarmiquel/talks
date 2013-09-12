@@ -784,7 +784,7 @@ for ( teamIndex = 0; teamIndex < teamCount; teamIndex++ ) {
         if ( dataReady ) ...
         if ( characterType & PRINTABLE_CHAR ) ...
         if ( reportType == ReportType_Annual ) ...
-        if ( recalcNeeded = false ) ...
+        if ( recalcNeeded == false ) ...
 
         dataReady = true
         characterType = CONTROL_CHARACTER
@@ -815,6 +815,49 @@ for ( teamIndex = 0; teamIndex < teamCount; teamIndex++ ) {
   <slide>
     <hgroup>
       <h2>Variables</h2>
+      <h3>Variables booleanas intermedias</h3>
+    </hgroup>
+    <article>
+      <p>Hay veces que es útil generar variables booleanas intermeaidas para simplificar expresiones complicadas dentro de un <code>if</code>.</p>
+      <p>Ejemplo:</p>
+      <pre class="prettyprint" data-lang="javascript">
+      if ( ( ( document.atEndOfDocument() ) && ( ! inputError ) ) &&
+        ( ( MIN_LINES <= lineCount ) && ( lineCount <= MAX_LINES ) ) && 
+        ( ! this.errorProcessing() ) ) {
+
+        // do something or other
+        // ..
+
+      }
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Variables booleanas intermedias (cont.)</h3>
+    </hgroup>
+    <article>
+      <p>Generando un par de variables booleanas intermedias se logra un código <span class="green2">mucho más legible</span></p>
+      <pre class="prettyprint" data-lang="javascript">
+      var allDataRead = ( document.atEndOfDocument() ) && ( ! inputError );
+      var legalLineCount = ( MIN_LINES <= lineCount ) && ( lineCount <= MAX_LINES )
+
+      if ( allDataRead && legalLineCount && ( ! ErrorProcessing() ) ) {
+
+        // do something or other
+        // ..
+
+      }
+      </pre>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
       <h3>Seguir convenciones cuando existan</h3>
     </hgroup>
     <article>
@@ -829,40 +872,144 @@ for ( teamIndex = 0; teamIndex < teamCount; teamIndex++ ) {
     </article>
   </slide>
 
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Nombres cortos</h3>
+    </hgroup>
+    <article>
+      <p>Tips para abreviar nombres de variables:</p>
+      <ul class="build">
+        <li>Ser consistente y siempre usar el mismo método</li>
+        <li>Usar abreviaciones estandares (diccionario)</li>
+        <li>Sacar todas las vocales (excepto cuando empiece con vocal). Ej: computer -> cmptr, screen -> scrn, integer -> intgr</li>
+        <li>Usar las primeras letras de la palabra</li>
+        <li>No abreviar sacando <span class="blue2">una</span> letra de la palabra</li>
+        <li>Crear nombres que sean pronunciables</li>
+        <li>Muchos más tips en el libro</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variables</h2>
+      <h3>Nombres a evitar</h3>
+    </hgroup>
+    <article>
+      <p>Nombres a evitar:</p>
+      <ul class="build">
+        <li>Evitar nombres que sean parecidos a otra variable: <code>input</code> e <code>inputValue</code>, <code>recordNum</code> y <code>numRecords</code>, etc.</li>
+        <li>Evitar nombres con distinto sentido per un nombre muy parecido: <code>clientRecs</code> y <code>clientReps</code></li>
+        <li>Evitar números en las variables (ej: <code>total1</code> y <code>total2</code>). Lo más probable que <code>total</code> debiera ser un array.</li>
+        <li>Nombres con errores de ortografía: <code>hilite</code>  en lugar de <code>hightlight</code></li>
+        <li>Palabras que comunmente la gente escribe mal: <code>accumulate</code>, <code>defferred</code>, etc. Usar un diccionario.</li>
+        <li>Letras que se parecen mucho (1 y l), (1 e I), (0 y O), etc.
+            <ul>
+              <li><code>eyeChartl - eyeChartI</code></li>
+              <li><code>ttl5 - ttlS</code></li> 
+            </ul>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Otras recomendaciones</h2>
+      <h3>Abusos de features</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Ejemplo: overloading operadores en C++</li>
+        <li>Abusos del <code>#define</code> en C
+          <pre class="prettyprint" data-lang="c">
+          #define ever   (;;)
+
+          // ... muchas lineas despues (o incluso en otro file)
+          for ever 
+          {
+          }
+          </pre>
+          wtf!?</li>
+        <li>The International Obfuscated C Code Contest: <a href="http://www0.us.ioccc.org/years.html" target="_blank">www.ioccc.org/</a></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aprendiendo por el opuesto</h2>
+      <h3>Como escribir código inmantenible</h3>
+    </hgroup>
+    <article>
+      <p><a href="http://mindprod.com/jgloss/unmain.html">Unmaintainable code</a> está lleno de buenos consejos de lo que <span class="red2">NO hay que hacer</span></p>
+      <p>Por ejemplo, en la sección de variables</p>
+      <ul class="build">
+        <li>Usar el libro '20001 nombres para su bebé' para nombrar las variables</li>
+        <li>Usar siempre (que sea posible) las varibles a, b y c en sus rutinas</li>
+        <li>Si tiene que usar nombres verdaderos cometa pequeñas faltas de ortografía. Pero no siempre.</li>
+        <li>Sea abstracto en el nombre. Ej: <code>routineX48</code>, <code>PerformDataFunction</code>, <code>DoIt</code>, <code>HandleStuff</code></li>
+        <li>Use _ y __ como nombres de variables</li>
+        <li>Use nombres en otros idiomas, i.e. <code>punkt</code> (Alemán) en lugar del mucho más simple <code>point</code></li>
+      </ul>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Aprendiendo por el opuesto</h2>
+      <h3>Como escribir código inmantenible</h3>
+    </hgroup>
+    <article>
+      <p>Mas ejemplos, esta vez de la seccion de comentarios</p>
+      <ul class="build">
+        <li>Mienta en los comentarios</li>
+        <li>Documente lo obvio: <code>i = i + 1; // add 1 to i</code></li>
+        <li>Nunca documente las unidades de medida de variables. Especialmente en programas de ingeniería</li>
+        <li>No borres código obsoleto! Dejalo comentado.</li>
+      </ul>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Aprendiendo mirando código de otros</h2>
+      <h3>Otros recursos para aprender</h3>
+    </hgroup>
+    <article>
+      <p>Otra buena forma de aprender es mirando código ageno</p>
+      <ul class="build">
+        <li><a href="http://fabiensanglard.net/" target="_blank">FABIEN SANGLARD</a> hace reviews de códigos de juegos</li>
+        <li><a href="https://github.com/id-Software" target="_blank">id Software git repos</a></li>
+        <li>Elija su código open source preferido: <span color="blue2">Django, Ruby on Rails, jQuery, Symfony, lo que sea</span></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/logo-nuevo-big.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>&lt;Muchas Gracias!&gt;</h2>
+      <p>Mis datos de contacto para los que le interese.</p>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="logoslide dark nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/logo-nuevo-con-texto-big.png"></span>
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
 
 <!--
-# Variable names: short names
-
-> The desire to use short variable names is in some ways a remnant of an earlier age of 
-computing. Older languages like assembler, generic Basic, and Fortran limited variable
-names to 2–8 characters and forced programmers to create short names
-
-Guidelines for short names:
-
-* Use standard abbreviations (in dictionary)
-* Remove all nonleading vowels. (computer becomes cmptr, and screen becomes scrn. apple becomes appl, and integer becomes intgr.)
-* Many more in the book
-
-
-# Varibale names: what names to avoid
-
-* Avoid names with similar meanings. Example: input and inputValue, recordNum and numRecords, and fileNumber and fileIndex
-* Avoid variables with different meanings but similar names. Example: clientRecs and clientReps much better to use: clientRecords and clientReports
-* Avoid names with numbers. You should probably be using an array.
-* Avoid words that are commonly misspelled in English
-* Avoid the names of standard types, variables, and routines
-* Avoid names containing hard-to-read characters. Nice examples:
-
-eyeChartl - eyeChartI - eyeChartl
-TTLCONFUSION - TTLCONFUSION - TTLC0NFUSION
-hard2Read - hardZRead - hard2Read
-GRANDTOTAL - GRANDTOTAL - 6RANDTOTAL
-ttl5 - ttlS - ttlS
-
-
--->
-
-
 
 
   <slide>
@@ -1198,25 +1345,7 @@ function helloWorld(world) {
     </article>
   </slide>
 
-  <slide class="thank-you-slide segue nobackground">
-    <aside class="gdbar right"><img src="images/logo-nuevo-big.png"></aside>
-    <article class="flexbox vleft auto-fadein">
-      <h2>&lt;Muchas Gracias!&gt;</h2>
-      <p>Mis datos de contacto para los que le interese.</p>
-    </article>
-    <p class="auto-fadein" data-config-contact>
-      <!-- populated from slide_config.json -->
-    </p>
-  </slide>
-
-  <slide class="logoslide dark nobackground">
-    <article class="flexbox vcenter">
-      <span><img src="images/logo-nuevo-con-texto-big.png"></span>
-    </article>
-  </slide>
-
-  <slide class="backdrop"></slide>
-
+-->
 </slides>
 
 <script>
