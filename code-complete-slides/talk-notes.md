@@ -549,7 +549,12 @@ hard2Read - hardZRead - hard2Read
 GRANDTOTAL - GRANDTOTAL - 6RANDTOTAL
 ttl5 - ttlS - ttlS
 
+# Abusos del lenguaje
 
+* Ejemplo overloading clases en C++
+* Abusos de #define (ej: for ever {})
+* The International Obfuscated C Code Contest: www.ioccc.org/
+* Writing unmaintanable code: http://mindprod.com/jgloss/unmain.html
 
 # 31. Layout and Style
 # 32. Self-documenting code
