@@ -1,6 +1,6 @@
 # Machine Learning
 
-## [Andrew Ng Talk - Artificial Intelligence is the New Electricity](https://www.youtube.com/watch?v=21EiKfQYZXc)
+## Andrew Ng Talk - Artificial Intelligence is the New Electricity ([video](https://www.youtube.com/watch?v=21EiKfQYZXc))
 
 
 Problems:
@@ -52,7 +52,7 @@ What will take off soon?
  - Baidu HQ: face recognition to recognize employees.
  - A little more in the future: Radiology recognition.
 
-## [TensorFlow DevSummit 2018 (March 30, 2018)](https://www.tensorflow.org/dev-summit/)
+## TensorFlow DevSummit 2018 (March 30, 2018) [website](https://www.tensorflow.org/dev-summit/)
 
 [Livestream (YouTube)](https://www.youtube.com/watch?list=PLQY2H8rRoyvxjVx3zfw4vA4cvlKogyLNN)
 
@@ -86,6 +86,12 @@ Tensor flow:
 
 - [Neural Network Playground](https://playground.tensorflow.org) / [Github](https://github.com/tensorflow/playground)
 - We can use sensors
+
+
+### Training Performance: A user’s guide to converge faster
+
+- fp32 (IEEE floating point / 32 bits)
+- By using fp16 (smaller floating point representation, 16 bits) we can improve performance by reducing memory bandwidth (less data being transfer around). Additionally you can have more layers. The weights can be stored in fp32 but the activations are stored in fp16.
 
 
 ## Lecture 1 | Machine Learning (Stanford)
@@ -149,7 +155,7 @@ In numbers:
  - 1 billion traiable parameters
  - 3 days of training
 
-### Large Scale Distributed Deep Networks [PDF](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40565.pdf)
+### Large Scale Distributed Deep Networks ([PDF](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40565.pdf))
 
 Seems to be a follow up on 'cat paper' going into de details of *DistBelief* (precursor to TensorFlow)
 
@@ -157,7 +163,7 @@ Seems to be a follow up on 'cat paper' going into de details of *DistBelief* (pr
 ### Large-scale Deep Unsupervised Learning using Graphics Processors ([PDF](http://robotics.stanford.edu/~ang/papers/icml09-LargeScaleUnsupervisedDeepLearningGPU.pdf))
 
 
-### ImageNet Classification with Deep Convolutional Neural Networks [PDF](http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf)
+### ImageNet Classification with Deep Convolutional Neural Networks ([PDF](http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf))
 
 (2012)
 
@@ -175,7 +181,7 @@ that proved to be very effective. We also entered a variant of this model in the
 ILSVRC-2012 competition and achieved a winning top-5 test error rate of 15.3%,
 compared to 26.2% achieved by the second-best entry.
 
-### End to End Learning for Self-Driving Cars [PDF](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf)
+### End to End Learning for Self-Driving Cars ([PDF](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf))
 
 2016 (25/4)
 
