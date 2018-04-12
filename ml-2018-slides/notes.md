@@ -252,3 +252,4 @@ inference.
 - [models/research/deeplab at master · tensorflow/models](https://github.com/tensorflow/models/tree/master/research/deeplab)
 - [models/research at master · tensorflow/models](https://github.com/tensorflow/models/tree/master/research)
 - [Examples - Cityscapes Dataset](https://www.cityscapes-dataset.com/examples/)
+- [CUDA C Programming Guide](http://docs.nvidia.com/cuda/pdf/CUDA_C_Programming_Guide.pdf)
