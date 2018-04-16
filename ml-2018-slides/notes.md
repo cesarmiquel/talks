@@ -199,6 +199,13 @@ for training and validation. Second, CNN learning algorithms have been implement
 massively parallel graphics processing units (GPUs) which tremendously accelerate learning and
 inference.
 
+## AlphaGo
+
+[Deepmind AlphaZero - Mastering Games Without Human Knowledge - Go paper Author](https://www.youtube.com/watch?v=Wujy7OzvdJk)
+[How AlphaGo Zero works - Google DeepMind - Arxiv Insights](https://www.youtube.com/watch?v=MgowR4pq3e8)
+
+
+
 ## Referencias
 
 ### Machine Consciousness
