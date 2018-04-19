@@ -1,12 +1,12 @@
 var SLIDE_CONFIG = {
   // Slide settings
   settings: {
-    title: 'Code Complete:<br>Tips prácticos para programar',
-    subtitle: 'TECNODAY_  2013',
-    //eventInfo: {
-    //  title: 'Tecnoday_ 2013',
-    //  date: '13/09/2013'
-    //},
+    title: 'Machine Learning',
+    subtitle: 'Fundamental Meets Technology 2018',
+    eventInfo: {
+      title: '@ICAS',
+      date: '27/04/2018'
+    },
     useBuilds: true, // Default: true. False will turn off slide animation builds.
     usePrettify: true, // Default: true
     enableSlideAreas: true, // Default: true. False turns off the click areas on either slide of the slides.
@@ -17,7 +17,6 @@ var SLIDE_CONFIG = {
       'Open Sans:regular,semibold,italic,italicsemibold',
       'Source Code Pro'
     ],
-    //theme: ['mytheme'], // Add your own custom themes or styles in /theme/css. Leave off the .css extension.
   },
 
   // Author information
@@ -29,13 +28,6 @@ var SLIDE_CONFIG = {
     twitter: '@cesarmiquel',
     www: 'http://about.me/cesarmiquel',
     github: 'http://github.com/cesarmiquel'
-  }/*, {
-    name: 'Second Name',
-    company: 'Job Title, Google',
-    gplus: 'http://plus.google.com/1234567890',
-    twitter: '@yourhandle',
-    www: 'http://www.you.com',
-    github: 'http://github.com/you'
-  }*/]
+  }]
 };
 

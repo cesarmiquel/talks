@@ -27,9 +27,9 @@ URL: https://code.google.com/p/io-2012-slides
 
 <slides class="layout-widescreen">
 
-  <slide class="fill nobackground" style="background-image: url(images/globo1.png);">
+  <slide class="fill nobackground" style="background-image: url(images/ml-bg.jpg);">
     <article class="flexbox vcenter">
-        <h1 style="font-size: 90px; color: white;">TECNODAY_</h1>
+        <h1 style="font-size: 90px; color: white;">Machine Learning</h1>
     </article>
   </slide>
 
@@ -49,6 +49,139 @@ URL: https://code.google.com/p/io-2012-slides
     </hgroup>
   </slide>
 
+  <!--       * 4 *         -->
+  <slide>
+    <hgroup>
+      <h2>Outline</h2>
+    </hgroup>
+    <article class="huge">
+      <ul class="build">
+        <li>Definir qué queremos decir con Aprendizaje Automático (Machine Learning)</li>
+        <li>Ver varios aplicaciones recientes</li>
+        <li>Ver qué factores influyen en el auge actual</li>
+        <li>Ver un poquito de la matemática de una red neuronal</li>
+        <li>Mostrar algunas arquitecturas de redes</li>
+        <li>Ver algunos ejemplos aplicados</li>
+        <li>Compartir algunos recursos interesantes que hay en internet</li>
+      </ul>
+    </article>
+  </slide>
+
+  <!--       * 5 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Dos definciones</h3>
+    </hgroup>
+    <article class="build">
+      <p><b>Arthur Samuel (1959)</b>. Machine Learning: Field of study that gives computers the ability to learn without being explicitly programmed.</p>
+      <p><b>Tom Mitchell (1998)</b> Well-posed Learning Problem: A computer program is said to learn from experience <span class="red"><b>E</b></span> with respect to some task <span class="green"><b>T</b></span> and some performance measure <span class="blue"><b>P</b></span>, if its performance on <span class="green"><b>T</b></span>, as measured  by <span class="blue"><b>P</b></span>, improves with experience <span class="red"><b>E</b></span>.</p>
+    </article>
+  </slide>
+
+  <!--       * 6 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplos</h3>
+    </hgroup>
+    <article class="build">
+      <p>Un algoritmo de ML lo puedo pensar como una función \( \textbf{h}_{W,b}( \textbf{x} ) \) que dado uno o más atributos \( \textbf{x} = (x_0, x_1, ... ,x_n) \), al aplicar mi función me devuelve un vector \( \textbf{h}_{W,b}(x) \):</p>
+      <p>La función tiene parámetros \( W,b \) que son a su vez una matriz \( W \) y un vector \( b \) que definen lo que 'aprende' mi función.</p>
+      <p>Para obtener los parámetros \( W,b \) utilizo un conjunto de entrenamiento de \( m \) ejemplos \( (x^{(i)}, y^{(i)} ) \).</p>
+    </article>
+  </slide>
+
+  <!--       * 7 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplos</h3>
+    </hgroup>
+    <article class="build">
+      <table>
+        <tr><th>Input (\( \textbf{x} \))</th><th>Output (\( \textbf{h}_{W,b}(x) \))</th></tr>
+        <tr><td><span class="blue2">Foto</span></td><td><span class="green2">Soy yo? &nbsp;&nbsp; \( \textbf{h}_{W,b}(x) \in [0,1] \)</span></td></tr>
+        <tr><td><span class="blue2">Foto</span></td><td><span class="green2">Clasifica los objetos en \( k \) categorias &nbsp;&nbsp; \( \textbf{h}_{W,b}(x) \in \mathbb{R}^k \)</span></td></tr>
+        <tr><td><span class="blue2">Posición de un tablero de GO</span></td><td><span class="green2">Próximo paso</span></td></tr>
+        <tr><td><span class="blue2">Aplicación para un crédito</span></td><td><span class="green2">Lo va a pagar? &nbsp;&nbsp; \( \textbf{h}_{W,b}(x) \in [0,1] \)</span></td></tr>
+        <tr><td><span class="blue2">Audio</span></td><td><span class="green2">Transcripción de texto</span></td></tr>
+        <tr><td><span class="blue2">Un texto en Inglés</span></td><td><span class="green2">Texto traducido al español</span></td></tr>
+      </table>
+    </article>
+  </slide>
+
+  <!--       * 7 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplo: Google Translate</h3>
+    </hgroup>
+    <article class="build">
+      <p>Google Translate arrancó en el 2006 y es utilizado por  ~ 500 millones de personas por mes.</p>
+      <p>En 2016 el equipo de Google Brain reemplaza el motor viejo por uno nuevo basado en redes neuronales</p>
+      <p>En 9 meses obtienen mejoras análogas las que habían tenido en los últimos <b>10 años</b></p>
+    </article>
+  </slide>
+
+  <!--       * 8 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplo: Google Translate (cont)</h3>
+    </hgroup>
+    <article class="build">
+      <p>Texto de  <b>J. L. Borges</b></p>
+      <p class="centered">
+        “Uno no es lo que es por lo que escribe, sino por lo que ha leído.”
+      </p>
+      <p><b>Viejo sistema</b></p>
+      <p class="centered">
+      “One is not what is for what he writes, but for what he has read.”
+      </p>
+      <p><b>Versión nueva</b></p>
+      <p class="centered">
+      “You are not what you write, but what you have read.”
+      </p>
+      <p>&nbsp;</p>
+      <p>La historia completa está en: <i>The Great A.I. Awakening</i>, <a href="https://www.nytimes.com/2016/12/14/magazine/the-great-ai-awakening.html">NYTimes</a></p>
+    </article>
+  </slide>
+
+  <!--       * 9 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplo: Alpha Go</h3>
+    </hgroup>
+    <article class="build">
+      <ul>
+      <li>El Go tiene reglas más simples pero muchísimo más <b>branching</b>.</li>
+      <li>AlphaGo’s first formal match was against the reigning 3-times European Champion, Mr Fan Hui, in October 2015. Its 5-0 win was the first ever against a Go professional</li>
+      <li>En Marzo 2016 le ganó en Seul, Korea 4-1 a Lee Sedol, el mejor jugador de Go del mundo, ganador de 18 títulos mundiales</li>
+      </ul>
+    </article>
+  </slide>
+
+  <!--       * 9 *         -->
+  <slide>
+    <hgroup>
+      <h2>Qué pasó en este último tiempo (5 años)?</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>En ML tradicional hay un punto que más datos no implican mejores resultados</li>
+        <li>En las redes neuronales cuánto más información mejor es la performance</li>
+        <li>Cuanto más grande es la red, mejora aún más la performance</li>
+        <li>Tenemos muchísima más información ahora</li>
+        <li>La capacidad de las computadoras y la aparición de GPUs</li>
+        <li>Se resolvieron problemas de aprendizaje en 'deep neural networks' (redes de muchas capas)</li>
+      </ul>
+    </article>
+  </slide>
+
+
+
   <slide class="segue dark quote nobackground">
     <aside class="gdbar right bottom"><img src="images/logo-nuevo-big.png"></aside>
     <article class="flexbox vleft auto-fadein">
@@ -67,8 +200,8 @@ URL: https://code.google.com/p/io-2012-slides
       <h2>Los primeros 6 libros son:</h2>
     </hgroup>
     <article>
+        <p>\(a \in \mathbb{R} \), \( \textbf{v} \in \mathbb{R}^n \) then \( a\textbf{v} \cdot d\)</p>
       <ul>
-        <li>\(a \in \mathbb{R} \), \( \textbf{v} \in \mathbb{R}^n \) then \( a\textbf{v} \cdot d\)</li>
         <li><code>Code Complete (2nd edition)</code> by Steve McConnell</li>
         <li><code>The Pragmatic Programmer</code></li>
         <li><code>Structure and Interpretation of Computer Programs</code></li>
@@ -77,34 +210,6 @@ URL: https://code.google.com/p/io-2012-slides
         <li><code>Design Patterns</code> by the Gang of Four</li>
         <li>...</li>
       </ul>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Outline</h2>
-      <h3>De qué vamos a hablar</h3>
-    </hgroup>
-    <article>
-      <ol class="build">
-        <li>1. Como escribir funciones/procedimientos de alta calidad:<br/><br/>
-          <ul>
-            <li>Cómo es una rutina horrible</li>
-            <li>Cómo decidir cuando crear una rutina</li>
-            <li>Cómo elegir un nombre adecuado</li>
-            <li>Guidelines para los parámetros de una rutina</li>
-          </ul>
-        </li>
-        <li>2. Variables<br/><br/>
-          <ul>
-            <li>Donde y como definirlas</li>
-            <li>Variables <em>temporales</em></li>
-            <li>Cómo nombrar las variables</li>
-            <li>Consejos para tipos particulares de variables</li>
-            <li>Otros consejos utiles</li>
-          </ul>
-        </li>
-      </ol>
     </article>
   </slide>
 
