@@ -21,7 +21,7 @@ var SLIDE_CONFIG = {
 
   // Author information
   presenters: [{
-    name: 'Cesar Miquel',
+    name: 'César Miquel',
     company: 'Lead Developer<br/>Easytech',
     gplus: undefined,
     email: 'miquel@easytech.com.ar',
