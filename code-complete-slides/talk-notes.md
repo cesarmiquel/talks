@@ -556,6 +556,12 @@ ttl5 - ttlS - ttlS
 * The International Obfuscated C Code Contest: www.ioccc.org/
 * Writing unmaintanable code: http://mindprod.com/jgloss/unmain.html
 
+# Review de codigo de Q3
+
+main unix:
+
+ - https://github.com/id-Software/Quake-III-Arena/blob/master/code/unix/unix_main.c
+
 # 31. Layout and Style
 # 32. Self-documenting code
 # pg 539: The Devil’s Guide to Debugging
