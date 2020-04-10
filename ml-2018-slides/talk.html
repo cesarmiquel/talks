@@ -1,0 +1,494 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+  <script type="text/javascript" async src="MathJax/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="fill nobackground" style="background-image: url(images/ml-bg.jpg);">
+    <article class="flexbox vcenter">
+        <h1 style="font-size: 90px; color: white;">Machine Learning</h1>
+    </article>
+  </slide>
+
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/logo-nuevo-con-texto-big.png"></span>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/logo-nuevo-big.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <!--       * 4 *         -->
+  <slide>
+    <hgroup>
+      <h2>Outline</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul class="build">
+        <li>Definir qué queremos decir con Aprendizaje Automático (Machine Learning)</li>
+        <li>Ver varios aplicaciones recientes</li>
+        <li>Ver qué factores influyen en el auge actual</li>
+        <li>Ver un poquito de la matemática de una red neuronal</li>
+        <li>Mostrar algunas arquitecturas de redes</li>
+        <li>Ver algunos ejemplos aplicados</li>
+        <li>Compartir algunos recursos interesantes que hay en internet</li>
+      </ul>
+    </article>
+  </slide>
+
+  <!--       * 5 *         -->
+  <slide>
+    <hgroup>
+      <h2>ML Algorithm</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/ml-algoritm.png" class="reflect" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <!--       * 6 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplo: Clasificación de objetos</h3>
+    </hgroup>
+    <article class="centered">
+      <img src="images/yolov-01-medium.png" class="reflect" alt="Description" title="Description">
+      <footer class="source">source: <b>YOLO: Real-Time Object Detection</b> | <a href="https://pjreddie.com/darknet/yolo/">https://pjreddie.com/darknet/yolo/</a></footer>
+    </article>
+  </slide>
+
+  <!--       * 7 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplo: Google Translate</h3>
+    </hgroup>
+    <article class="build">
+      <p>Google Translate arrancó en el 2006 y es utilizado por  ~ 500 millones de personas por mes.</p>
+      <p>En 2016 el equipo de Google Brain reemplaza el motor viejo por uno nuevo basado en redes neuronales</p>
+      <p>En 9 meses obtienen mejoras análogas las que habían tenido en los últimos <b>10 años</b></p>
+    </article>
+  </slide>
+
+  <!--       * 8 *         -->
+  <slide class="segue dark quote nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <q>
+        Uno no es lo que es por lo que escribe, sino por lo que ha leído.
+      </q>
+      <div class="author">
+        J. L. Borges
+      </div>
+    </article>
+  </slide>
+
+  <!--       * 9 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplo: Google Translate</h3>
+    </hgroup>
+    <article class="build">
+      <p class="centered blue">"Uno no es lo que es por lo que escribe, sino por lo que ha leído."</p>
+      <p><br>Si traducimos esa frase en el <b>viejo</b> sistema de Google Translate:</p>
+      <p class="centered red">
+      “One is not what <b>is for what he writes</b>, but <b>for</b> what he has read.”
+      </p>
+      <p><br>En la <b>nueva versión</b> que utiliza ML:</p>
+      <p class="centered green">
+      "You are not what you write, but what you have read.”
+      </p>
+      <p class="centered green">
+      “One is not what <b>he is by what he writes</b>, but <b>by</b> what he has read.”
+      </p>
+      <p>
+      <br>
+      La historia completa de cómo fue todo este cambio está en: <b>The Great A.I. Awakening</b>, <a href="https://www.nytimes.com/2016/12/14/magazine/the-great-ai-awakening.html">NYTimes</a>
+      </p>
+    </article>
+  </slide>
+
+  <!--       * 10 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplo: playing Videogames</h3>
+    </hgroup>
+    <article class="build">
+      <img src="images/deepmind-breakout-starting.gif" class="reflect" alt="Description" title="Description" style="float: left; margin-left: 50px;">
+      <img src="images/deepmind-breakout-winning.gif" class="reflect" alt="Description" title="Description" style="float: right; margin-right: 50px;">
+      <footer class="source">Video completo: <a href="https://www.youtube.com/watch?v=_LEthduIbtk">Google DeepMind's Deep Q learning playing Atari breakout (YouTube)</a></p></footer>
+    </article>
+  </slide>
+
+  <!--       * 11 *         -->
+  <slide class="fill nobackground" style="background-image: url(images/go-bg.jpg);">
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplo: Alpha Go</h3>
+    </hgroup>
+    <article class="build gray4">
+      <ul>
+        <li>Dos jugadores ponen piezas blancas/negras en un tablero de 19x19</li>
+        <li>Objetivo del juego es conquistar territorio</li>
+        <li>El Go tiene reglas más simples que el Ajedrez pero muchísimo más <b>branching</b>.</li>
+        <li>El primer partido formal que AlphaGo ganó fue contra el 3-veces campeón Europea, Mr Fan Hui, en Octobre 2015. Le ganó <b>5-0</b></li>
+        <li>En Marzo 2016 le ganó en Seul, Korea <b>4-1</b> a Lee Sedol, el mejor jugador de Go del mundo, ganador de 18 títulos mundiales</li>
+      </ul>
+
+      <p>En <b>Netflix</b> hay un documental excelente llamado <span class="blue">AlphaGo</span> que cuenta la historia.</p>
+    </article>
+  </slide>
+
+  <!--       * 12 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplo: Finding new planets</h3>
+    </hgroup>
+    <article class="centered">
+      <p>Identifying Exoplanets with Deep Learning: A Five Planet Resonant Chain Around KEPLER-80 and an Eighth Planet Around KEPLER-90 <a href="https://www.cfa.harvard.edu/~avanderb/kepler90i.pdf">(PDF)</a></p>
+      <img src="images/kepler90i.jpg" class="reflect" alt="Description" title="Description">
+      <footer class="source">source: <b>AI, NASA Data Used to Discover Eighth Planet Circling Distant Star</b> | <a href="https://www.nasa.gov/press-release/artificial-intelligence-nasa-data-used-to-discover-eighth-planet-circling-distant-star">https://www.nasa.gov/press-release/artificial-intelligence-nasa-data-used-to-discover-eighth-planet-circling-distant-star</a></footer>
+    </article>
+  </slide>
+
+  <!--       * 13 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Ejemplo: Model-free Estimation from Data of the Lyapunov Exponents</h3>
+    </hgroup>
+    <article>
+      <p>Edward Ott y 4 colaboradores de la Universidad de Maryland utilizan <b>reservoir computing</b> para predecir la dinámica de sistemas caótico </p>
+      <ul>
+        <li><b>"Using Machine Learning to Replicate Chaotic Attractors and Calculate Lyapunov Exponents from Data"</b> <a href="https://arxiv.org/abs/1710.07313">(PDF)</a></li>
+        <li><b>"Model-Free Prediction of Large Spatiotemporally Chaotic Systems from Data: A Reservoir Computing Approach"</b>, Phys. Rev. Lett. 120, 024102 – Published 12 January 2018</li>
+      </ul>
+      <footer class="source">source: <b>Machine Learning’s ‘Amazing’ Ability to Predict Chaos, Quantamagazine</b> | <a href="https://www.quantamagazine.org/machine-learnings-amazing-ability-to-predict-chaos-20180418/">https://www.quantamagazine.org/machine-learnings-amazing-ability-to-predict-chaos-20180418/</a></footer>
+    </article>
+  </slide>
+
+  <!--       * 14 *         -->
+  <slide>
+    <hgroup>
+      <h2>Qué pasó en este último tiempo (5 años)?</h2>
+    </hgroup>
+    <article>
+      <p>Hubo una serie de avances en ML y en particular en el uso de redes neuronales</p>
+      <ul class="build">
+        <li>La investigación en redes neuronales se había estancado</li>
+        <li>En ML tradicional hay un punto que más datos no implican mejores resultados</li>
+        <li>En las redes neuronales cuánto más información mejor es la performance</li>
+        <li>Cuanto más grande es la red, mejora aún más la performance</li>
+        <li>Tenemos muchísima más información ahora</li>
+        <li>La capacidad de las computadoras y la aparición de GPUs</li>
+        <li>Se resolvieron problemas de aprendizaje en 'deep neural networks' (redes de muchas capas)</li>
+      </ul>
+    </article>
+  </slide>
+
+  <!--       * 15 *         -->
+  <slide>
+    <hgroup>
+      <h2>Ganador del ImageNet</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/imagenet-winner-num-layers-medium.png" class="reflect" alt="Description" title="Description">
+      <footer class="source">source: <b>ResNets, HighwayNets, and DenseNets, Oh My!</b> | <a href="https://chatbotslife.com/resnets-highwaynets-and-densenets-oh-my-9bb15918ee32">https://chatbotslife.com/resnets-highwaynets-and-densenets-oh-my-9bb15918ee32</a></footer>
+    </article>
+  </slide>
+
+  <!--       * 16 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Neural networks</h3>
+    </hgroup>
+    <article>
+      <img style="float: left;" src="images/single-neuron.png" class="Centered" alt="Description" title="Description">
+      <p>La <b>"hipótesis"</b> es una función de mi vector \( \textbf{x} \):
+      \begin{eqnarray*}
+        \textbf{h}_{W,b}( \textbf{x} ) & = f \left( \sum_{i=1}^3 W_{i} x_i + b \right) \\
+        & = f(\textbf{W}^T \textbf{x} + b) 
+      \end{eqnarray*}
+      </p>
+    </article>
+  </slide>
+
+  <!--       * 17 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Neural networks: función activación</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/activation-functions.png" class="Centered" alt="Description" title="Description">
+      <p class="centered">\( f(z) = {1 \over {1 + e^{-z}}} \) &nbsp;&nbsp;&nbsp; o &nbsp;&nbsp;&nbsp; \( f(z) = tanh(z) \)
+    </article>
+  </slide>
+
+  <!--       * 18 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Neural networks: 3 capas</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/3-layer-network.png" class="Centered" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <!--       * 19 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Neural networks: training</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <p>Para obtener los parámetros \( W,b \) utilizo un conjunto de entrenamiento de \( m \) muestras \( (x^{(i)}, y^{(i)} ) \) y busco minimizar la siguiente función:</p>
+      <p>
+      \begin{eqnarray*}
+      J(\textbf{W}, \textbf{b}, \textbf{x}, \textbf{y}) = { 1 \over 2 }  \Vert h_{\textbf{W,b}}(\textbf{x}) - \textbf{y} \Vert^2 \\
+      \end{eqnarray*}
+      </p>
+      <p>La fórmula completa si ahora promedio sobre mi conjunto de \( m \) muestras es:</p>
+      \begin{eqnarray*}
+      J(\textbf{W}, \textbf{b}) = { 1 \over m } \left [ \sum_{i=1}^{m}  J(\textbf{W}, \textbf{b}, \textbf{x}^{(i)}, \textbf{y}^{(i)}) \right ] 
+      + {\lambda \over 2} \sum_{l=1}^{n_l - 1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}} \left ( \textbf{W}_{ji}^{(l)} \right ) ^2 \\
+      \end{eqnarray*}
+      <p>
+      </p>
+    </article>
+  </slide>
+
+  <!--       * 20 *         -->
+  <slide>
+    <hgroup>
+      <h2>Machine Learning</h2>
+      <h3>Neural networks: Backpropagation algorithm</h3>
+    </hgroup>
+    <article>
+      <p>Para minimizar \( J(\textbf{W}, \textbf{b}) \) hay un algoritmo standard llamado <span class="green"><b>gradient descent</b></span></p>
+      <p>Básicamente la matriz de pesos se actualiza mediante la siguiente regla:</p>
+      <p>
+      \begin{eqnarray*}
+      \textbf{W}_{ij}^{(l)} & := \textbf{W}_{ij}^{(l)} - \alpha { \partial \over {\partial \textbf{W}_{ij}^{(l)}} } J(\textbf{W}, \textbf{b})  \\
+      \textbf{b}_{i}^{(l)} & := \textbf{b}_{i}^{(l)} - \alpha { \partial \over {\partial \textbf{b}_{i}^{(l)}} } J(\textbf{W}, \textbf{b}) 
+      \end{eqnarray*}
+      </p>
+      <p>Para calcular las derivadas hay un algoritmo eficiente llamado <span class="blue"><b>Backpropagation</b></span></p>
+    </article>
+  </slide>
+
+  <!--       * 21 *         -->
+  <slide>
+    <hgroup>
+      <h2>Arquitectura de Redes Neuronales</h2>
+      <h3>ejemplo de 4 capas</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <p>Las más simples tienen unas pocas capas. El ejemplo de abajo tiene una capa entrada, 2 capas escondidas y una de salida</p>
+      <img src="images/4-layer-network.png" class="Centered" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <!--       * 22 *         -->
+  <slide>
+    <hgroup>
+      <h2>Arquitectura de Redes Neuronales</h2>
+      <h3>Convolutional Neural Netwokrs</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul>
+      <li>Cada capa se representa como un volumen en lugar de una linea de unidades</li>
+      <li>Esquema general de una CNN. Vemos 4 capas: <span class="red">entrada</span>, dos de <span class="blue">convolucion</span> y una de <span class="green">salida</span>.</li>
+      </ul>
+      <img src="images/cnn.jpeg" class="Centered" alt="Description" title="Description">
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <footer class="source">source: S231n: Convolutional Neural Networks for Visual Recognition. | http://cs231n.github.io/ </footer>
+    </article>
+  </slide>
+
+  <!--       * 23 *         -->
+  <slide>
+    <hgroup>
+      <h2>Convolutional Neural Netwokrs</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul>
+        <li>La capa de entrada tiene 32x32x3 (3.072 neuronas)</li>
+        <li>Sólo unas pocas neuronas de la <span class="red">capa de entrada</span> estan conectadas con cada 'fibra' de la <span class="blue">segunda capa</span>.</li>
+      </ul>
+      <img src="images/depthcol-medium.jpeg" class="Centered" alt="Description" title="Description">
+      <footer class="source">source: S231n: Convolutional Neural Networks for Visual Recognition. | http://cs231n.github.io/ </footer>
+    </article>
+  </slide>
+
+  <!--       * 24 *         -->
+  <slide>
+    <hgroup>
+      <h2>Convolutional Neural Netwokrs</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/convolution-layer-neural-network-animation.gif" class="Centered" alt="Description" title="Description">
+      <p>Otra forma de ver cómo están conectadas las capas</p>
+    </article>
+  </slide>
+
+  <!--       * 25 *         -->
+  <slide>
+    <hgroup>
+      <h2>Sparse Autoencoder</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/sparse-autoencoder-medium.png" class="Centered" alt="Description" title="Description">
+      <p>Una red neuronal que implementa la función identidad (\( \mathbb{I} \))</p>
+    </article>
+  </slide>
+
+  <!--       * 26 *         -->
+  <slide>
+    <hgroup>
+      <h2>Sparse Autoencoder</h2>
+      <h3>Para qué puede servir</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul>
+        <li>Parecería poco útil</li>
+        <li>Sirve para <b>comprimir</b> la información de la capa de entrada</li>
+        <li>Se llama <b>sparse</b> porque en la etapa de enseñanza se agrega una 'restricción': que la mayoría no esté activada</li>
+        <li>Si a este tipo de redes se las entrena con sets grandes de datos aprenden a identificar <span class="green">features</span></li>
+        <li>El ejemplo emblematico es el paper de 2012 de la gente de Google conocido como el <span class="red">Cat paper</span></li>
+        <li>1000 millones de conexiones, 10 millones de imagens de 200x200, cluster de 1000 máquinas (16000 cores).</li>
+        <li>Muestran que pueden detectar caras (y gatos!) sin necesidad de etiquetar las muestras <b>Unsupervised Learning</b></li>
+      </ul>
+    </article>
+  </slide>
+
+  <!--       * 27 *         -->
+  <slide class="fill nobackground" style="background-image: url(images/go-bg.jpg);">
+    <hgroup>
+      <h2>Ejemplo de la vida real</h2>
+      <h3>AlphaGo</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul>
+        <li>AlphaGo utiliza dos redes neuronales + 1 algoritmo de 'tree search'</li>
+        <li>La primer red es la <span class="green">policy network</span>. Nos recomienda jugadas para hacer</li>
+        <li>La segunda red es la <span class="red">value network</span>. Nos dice con qué probabilidad podemos ganar a partir de la posición actual.</li>
+        <li>La capa de entrada tiene 48 planos de 19x19 neuronas</li>
+        <li>Ambas redes son un conjunto de ~ 15 capas de convolución (cada una)</li>
+        <li>La capa de salida de la <span class="green">policy network</span> tiene 1 plano de 19x19 con la distribución de probabilidad</li>
+        <li>La capa de salida de la <span class="red">value network</span> es un escalar con la probabilidad de ganar/perder dada la posición de entrada</li>
+      </ul>
+    </article>
+  </slide>
+
+  <!--       * 28 *         -->
+  <slide>
+    <hgroup>
+      <h2>AlphaGo</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/alphago-nn.png" class="Centered" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <!--       * 29 *         -->
+  <slide>
+    <hgroup>
+      <h2>AlphaGo</h2>
+      <h3>Input layers</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/alphago-feature-planes.png" class="Centered" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <!--       * 30 *         -->
+  <slide>
+    <hgroup>
+      <h2>Resources</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li><a href="https://github.com/endymecy/awesome-deeplearning-resources">Awesome Deep learning papers and other resources</a></li>
+        <li><a href="https://deepmind.com/research/">Deepmind research webpage</a></li>
+        <li><a href="https://research.google.com/teams/brain/">Google Brain Team</a></li>
+        <li><a href="http://neuralnetworksanddeeplearning.com/">Neural Networks and Deep Learning - Michael Nielsen</li>
+        <li><a href="https://www.tensorflow.org/">Tensorflow - Google ML Framework</a> / <a href="https://js.tensorflow.org/">Tensorflow JS</a></li>
+        <li><a href="https://playground.tensorflow.org">Tinker With a Neural Network Right Here in Your Browser</a></li>
+        <li><a href="https://keras.io/">Keras: The Python Deep Learning library</a></li>
+        <li><a href="http://cs229.stanford.edu/">CS229: Machine Learning | Dan Boneh / Andres Ng</a> - <a href="https://www.youtube.com/watch?v=UzxYlbK2c7E&list=PLA89DCFA6ADACE599"> CS229: Machine Learning YouTube lectures</a></li>
+        <li><a href="http://containertutorials.com/docker-ml/tensorflow_jupyter.html">Docker + Jupyter + Tensorflow</a></li>
+        <li><a href="https://developers.google.com/machine-learning/crash-course/">Machine Learning Crash Course | Google</a></li>
+      </ul>
+    </article>
+  </slide>
+
+  <!--       * 31 *         -->
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/logo-nuevo-big.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>&lt;Muchas Gracias!&gt;</h2>
+      <p>Link a la charla: <a href="http://bit.ly/ml-2018" style="color: white; font-weight: bold">http://bit.ly/ml-2018</a></p>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <!--       * 32 *         -->
+  <slide class="logoslide dark nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/logo-nuevo-con-texto-big.png"></span>
+    </article>
+  </slide>
+
+  <!--       * 34 *         -->
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
